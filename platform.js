@@ -16,6 +16,10 @@ Platform = Class.create(Sprite, {
       this.globalY = y;
       this.y = y;
       this.isUpPlatform = (typeof upPlatform === 'undefined') ? true : upPlatform;
+
+      this.addEventListener('added', function (e) {
+         platforms.push(this);
+      });
    },
 
    onenterframe: function() {

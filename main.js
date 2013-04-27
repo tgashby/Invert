@@ -52,14 +52,21 @@ window.onload = function() {
          }
 
          game.flipTimer++;
-         if (game.flipTimer > 360) {
+         if (game.flipTimer > game.fps * 5) {
             game.gameStateUp = !game.gameStateUp;
             game.flipTimer = 0;
             player.onFlip();
             camera.onFlip();
 
+            // Clean out the platforms array, effectively clearing the root scene.
+            for (var i = 0; i < platforms.length; i++) {
+               game.rootScene.removeChild(platforms[i]);
+            };
+            platforms.splice(0, platforms.length);
+
             if (game.gameStateUp) {
-               game.rootScene.addChild(new Platform(0, gameHeight - 100, gameWidth));
+               platforms.push(new Platform(0, gameHeight - 100, gameWidth));
+               game.rootScene.addChild(platforms[0]);
             }
 
             upBlockHeight = 400;
