@@ -15,6 +15,7 @@ window.onload = function() {
 
    game.onload = function() {
       game.fps = 120;
+      game.flipTimer = 0;
       
       // Start the game with bouncing upwards
       game.gameStateUp = true;
@@ -26,14 +27,15 @@ window.onload = function() {
       game.keybind(83, 'down');
 
       player = new Player();
-      camera = new Camera(player);
+      camera = new Camera();
 
       game.rootScene.addChild(player);
 
       game.rootScene.addEventListener('enterframe', function(e) {
          camera.update();
+
          if (Math.random() * 1000 < 30) 
-            game.rootScene.addChild(new Rotating());
+            game.rootScene.addChild(new Rotating(game.gameStateUp));
          
          if (game.gameStateUp) {
             while (upBlockHeight - (camera.globalY - 80) > 0) {
@@ -48,9 +50,11 @@ window.onload = function() {
             }
          }
 
-         if (game.gameStateUp && player.y > gameHeight || 
-          !game.gameStateUp && player.y < 0)
-            game.end();
+         game.flipTimer++;
+         if (game.flipTimer > 360) {
+            game.gameStateUp = !game.gameStateUp;
+            game.flipTimer = 0;
+         };
       });
 
       game.bgm = game.assets['CutRunLoop.ogg'];

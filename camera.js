@@ -3,8 +3,7 @@ var camOffset = 60;
 var scrollDownYOffset = 200;
 
 Camera = Class.create({
-   initialize: function(player) {
-      this.player = player;
+   initialize: function() {
       this.globalY = 0;
       this.peakY = player.globalY;
       this.lowY = player.globalY;
