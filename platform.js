@@ -36,19 +36,19 @@ Platform = Class.create(Sprite, {
       });
 
       this.intersect = function (sprite) {
-         if (sprite.x > this.x && sprite.x < this.x + this.scaleX &&
+         if (sprite.x > this.x && sprite.x < this.x + (this.scaleX * this.width) &&
           sprite.y > this.y && sprite.y < this.y + this.height)
             return true;
 
-         if (sprite.x + sprite.width > this.x && sprite.x + sprite.width < this.x + this.scaleX && 
+         if (sprite.x + sprite.width > this.x && sprite.x + sprite.width < this.x + (this.scaleX * this.width) && 
           sprite.y > this.y && sprite.y < this.y + this.height)
             return true;
 
-         if (sprite.x > this.x && sprite.x < this.x + this.scaleX &&
+         if (sprite.x > this.x && sprite.x < this.x + (this.scaleX * this.width) &&
           sprite.y + sprite.height > this.y && sprite.y + sprite.height < this.y + this.height)
             return true;
 
-         if (sprite.x + sprite.width > this.x && sprite.x + sprite.width < this.x + this.scaleX && 
+         if (sprite.x + sprite.width > this.x && sprite.x + sprite.width < this.x + (this.scaleX * this.width) && 
           sprite.y + sprite.height > this.y && sprite.y + sprite.height < this.y + this.height)
             return true;
 
