@@ -33,7 +33,7 @@ Player = Class.create(Sprite, {
 
 window.onload = function() {
     game = new Game(gameWidth, gameHeight);
-    game.preload('player.png', 'platform.png');
+    game.preload('player.png', 'platform.png', 'backgroundCube.png');
     game.onload = function() {
       game.fps=120;
     	game.keybind(65, 'left');
@@ -47,7 +47,8 @@ window.onload = function() {
       game.rootScene.addChild(new Platform(0,gameHeight-100,gameWidth));
       game.rootScene.addEventListener('enterframe',function(e){
       camera.update();
-      
+      if (Math.random() * 1000 < 10)
+         game.rootScene.addChild(new Rotating());
       while(upBlockHeight - (camera.globalY - 80) > 0){
             upBlockHeight = createUpPlatforms(upBlockHeight); 
             //console.log(upBlockHeight);
