@@ -14,11 +14,16 @@ Platform = Class.create(Sprite, {
       Sprite.call(this, 100, 50);
       this.platWidth = width;
       this.image = game.assets['platform.png'];
-
+      this.platWidth = width;
       this.frame = 0;
+      this.originX = 0;
+      this.originY = 0;
       // this.scaleX = width / frameWidth;
-      this.width = width;
-      
+      //is.width = width;
+      if (this.platWidth > frameWidth) {
+         this.scaleX = this.platWidth / frameWidth;
+        
+      };
       this.x = x;
       this.globalY = y;
       this.y = y;
@@ -32,10 +37,8 @@ Platform = Class.create(Sprite, {
    },
 
    onenterframe: function() {
-      this.frame = 1;
-      if (this.platWidth> frameWidth) {
-         this.scaleX = this.platWidth / frameWidth;
-      };
+      this.frame = 0;
+    
       if (this.intersect(player)) {
          if (player.bounce === true && player.vel.y < 0) {
             player.vel.y = 20;
