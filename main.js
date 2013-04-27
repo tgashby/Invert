@@ -46,7 +46,7 @@ window.onload = function() {
             //console.log("Hoiii");
             while ((camera.globalY + 120 + gameHeight) > (downBlockHeight)) {
                downBlockHeight = createDownPlatforms(downBlockHeight);
-               console.log(downBlockHeight);
+               // console.log(downBlockHeight);
             }
          }
 
@@ -55,6 +55,7 @@ window.onload = function() {
             game.gameStateUp = !game.gameStateUp;
             game.flipTimer = 0;
             player.onFlip();
+            camera.onFlip();
 
             if (game.gameStateUp) {
                game.rootScene.addChild(new Platform(0, gameHeight - 100, gameWidth));

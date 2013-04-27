@@ -48,7 +48,7 @@ PlatformRow = Class.create({
       this.p2 = new Platform(this.gapX + this.gapX2, this.p1.globalY, gameWidth - (this.gapX + this.gapX2), false);
       game.rootScene.addChild(this.p1);
       game.rootScene.addChild(this.p2);
-      console.log("Added plats");
+      // console.log("Added plats");
       this.globalY = this.p1.globalY;
 
    },

@@ -43,5 +43,6 @@ Player = Class.create(Sprite, {
       this.bounce = game.gameStateUp;
       this.x = gameWidth / 2;
       this.y = gameHeight / 2;
+      this.globalY = this.y;
    }
 });
