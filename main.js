@@ -16,6 +16,7 @@ window.onload = function() {
 
    game.onload = function() {
       game.fps = 120;
+      game.score = 0;
       game.flipTimer = 0;
       
       // Start the game with bouncing upwards
@@ -29,11 +30,19 @@ window.onload = function() {
 
       player = new Player();
       camera = new Camera();
+      scoreLabel = new Label();
+      scoreLabel.addEventListener('enterframe', function() {
+         this.text = "Score: " + game.score;
+      });
+      scoreLabel.x = 10;
+      scoreLabel.y = 10;
 
       game.rootScene.addChild(player);
+      game.rootScene.addChild(scoreLabel);
 
       game.rootScene.addEventListener('enterframe', function(e) {
          camera.update();
+         game.score += 9;
 
          if (Math.random() * 1000 < 30) 
             game.rootScene.addChild(new Rotating(game.gameStateUp));
@@ -83,13 +92,22 @@ window.onload = function() {
          if (game.transition.currentTime >= game.transition.duration) {
             game.bgm.play();
          };
+
+         if (player.y + player.height < 0 && !game.gameStateUp ||
+          player.y > gameHeight && game.gameStateUp) {
+            game.end();
+         };
+
+         if (game.score > 9000) {
+            alert("You Win!");
+            game.end();
+         }
       });
 
-      game.bgm = game.assets['CutRunUpLoop.ogg'];
-
-      game.bgm._element.loop = true;
-
       game.transition = game.assets['CutRunTransition.ogg'];
+
+      game.bgm = game.assets['CutRunUpLoop.ogg'];
+      game.bgm._element.loop = true;
 
       game.bgm.play();
    }
