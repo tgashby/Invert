@@ -5,9 +5,10 @@ var gameHeight = 500;
 var player;
 var upBlockHeight = 400;
 var downBlockHeight = 500;
+var platforms = new Array();
 var assets = ['player.png', 'platform.png',
    'backgroundCube.png', 'CutRunDownLoop.ogg',
-   'CutRunLoop.ogg', 'CutRunTransition.ogg'];
+   'CutRunLoop.ogg', 'CutRunTransition.ogg', 'CutRunUpLoop.ogg'];
 
 window.onload = function() {
    game = new Game(gameWidth, gameHeight);
@@ -60,6 +61,9 @@ window.onload = function() {
             if (game.gameStateUp) {
                game.rootScene.addChild(new Platform(0, gameHeight - 100, gameWidth));
             }
+
+            upBlockHeight = 400;
+            downBlockHeight = 500;
          };
       });
 

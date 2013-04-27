@@ -7,13 +7,11 @@ Camera = Class.create({
       this.globalY = 0;
       this.peakY = player.globalY;
       this.lowY = player.globalY;
-      this.age = 0;
       this.cameraScrollSpeed = 1;
    },
 
    update: function() {
       if (game.gameStateUp) {
-         this.age++;
          this.cameraScrollSpeed = 1;
          this.globalY -= this.cameraScrollSpeed;
 
@@ -46,7 +44,7 @@ Camera = Class.create({
 
    onFlip: function () {
       this.globalY = 0;
-      
+
       this.peakY = player.globalY;
       this.lowY = player.globalY;
    }

@@ -36,8 +36,6 @@ Platform = Class.create(Sprite, {
          game.rootScene.removeChild(this);
       }
    }
-
-
 });
 
 PlatformRow = Class.create({
