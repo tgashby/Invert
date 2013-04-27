@@ -7,11 +7,18 @@ var gapSpaceMax = 140;
 var gapSpaceMin = 100;
 var maxDownHeight = 160;
 var minDownHeight = 100;
+var frameWidth = 100;
 
 Platform = Class.create(Sprite, {
    initialize: function(x, y, width, upPlatform) {
-      Sprite.call(this, width, 50);
+      Sprite.call(this, frameWidth, 50);
       this.image = game.assets['platform.png'];
+      this.frame = 0;
+      if (width > frameWidth) {
+         this.scaleX = width / frameWidth;
+      };
+      this.width = width;
+      
       this.x = x;
       this.globalY = y;
       this.y = y;
