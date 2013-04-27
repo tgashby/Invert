@@ -3,7 +3,7 @@ var minUpHeight = 100;
 var maxWidth = 100;
 var minWidth = 40;
 var downWidthMax = 300;
-var gapSpaceMax = 100;
+var gapSpaceMax = 150;
 var gapSpaceMin = 100;
 var maxDownHeight = 160;
 var minDownHeight = 100;
@@ -20,10 +20,10 @@ Platform = Class.create(Sprite, {
       this.originY = 0;
       // this.scaleX = width / frameWidth;
       //is.width = width;
-      if (this.platWidth > frameWidth) {
+      
          this.scaleX = this.platWidth / frameWidth;
         
-      };
+   
       this.x = x;
       this.globalY = y;
       this.y = y;
@@ -79,9 +79,12 @@ Platform = Class.create(Sprite, {
    },
    switchSpaces:function(){
       pRow = new PlatformRow(this.globalY,this.x,this.width);
+      
+      console.log("platformRows count: "+ platformRows.length)
       //Add pRow to array
       //Remove from Platform array
       game.rootScene.removeChild(this);
+      console.log("---");
    }
 });
 
@@ -95,7 +98,9 @@ PlatformRow = Class.create({
       game.rootScene.addChild(this.p2);
       // console.log("Added plats");
       this.globalY = this.p1.globalY;
+
       platformRows.push(this);
+      console.log("Added row "+platformRows.length);
 
    },
    onenterframe: function() {

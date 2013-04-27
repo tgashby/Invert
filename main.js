@@ -94,7 +94,7 @@ window.onload = function() {
                downBlockHeight = camera.globalY + gameHeight + 100;
                while (platforms.length > 0) {
                   currentPlat = platforms.pop();
-                  if(currentPlat.globalY < (camera.globalY + gameHeight)){
+                  if(currentPlat.globalY > camera.globalY && (currentPlat.globalY < (camera.globalY + gameHeight))){
                      currentPlat.switchSpaces();
                   }
                   game.rootScene.removeChild(currentPlat);
@@ -105,11 +105,12 @@ window.onload = function() {
                upBlockHeight = camera.globalY;
                while(platformRows.length > 0){
                   currentRow = platformRows.pop();
-                  if(currentRow.globalY <(camera.globalY + gameHeight))
+                  console.log("Removing row "+ platformRows.length);
+                  if(currentRow.globalY > camera.globalY && currentRow.globalY < (camera.globalY + gameHeight))
                   {
                      currentRow.switchSpaces();
                   }
-                  currentRow.removeSelf();
+                 currentRow.removeSelf();
                };
             }
             if (game.gameStateUp) {
