@@ -13,8 +13,7 @@ Camera = Class.create({
    update: function() {
       //console.log(this.globalY);
       if (game.gameStateUp) {
-
-         this.cameraScrollSpeed = 1;
+         // this.cameraScrollSpeed = 1;
          this.globalY -= this.cameraScrollSpeed;
 
          if (this.peakY > player.globalY) {
@@ -28,7 +27,7 @@ Camera = Class.create({
          }
       } 
       else {
-         this.cameraScrollSpeed = 3;
+         // this.cameraScrollSpeed = 3;
 
          if (this.lowY < player.globalY) //Remember inverted y
          {
@@ -60,6 +59,17 @@ Camera = Class.create({
       this.peakY = player.globalY;
       this.lowY = player.globalY;
       */
+   },
+
+   chill: function () {
+      this.cameraScrollSpeed = 0;
+   },
+
+   stopChillin: function () {
+      if (game.gameStateUp)
+         camera.cameraScrollSpeed = 1;
+      else
+         camera.cameraScrollSpeed = 3;
    }
    
 

@@ -7,7 +7,7 @@ var upBlockHeight = 400;
 var downBlockHeight = 500;
 var platforms = new Array();
 var platformRows = new Array();
-var assets = ['player.png', 'platform.png',
+var assets = ['bg.png', 'player.png', 'platform.png',
    'backgroundCube.png', 'CutRunDownLoop.ogg',
    'CutRunLoop.ogg', 'CutRunTransition.ogg', 'CutRunUpLoop.ogg'];
 
@@ -19,6 +19,11 @@ window.onload = function() {
       game.fps = 120;
       game.score = 0;
       game.flipTimer = 0;
+
+      bg = new Sprite(gameWidth, gameHeight);
+      bg.image = game.assets['bg.png'];
+      bg.frame = 0;
+      game.rootScene.addChild(bg);
       
       // Start the game with bouncing upwards
       game.gameStateUp = true;
@@ -73,6 +78,16 @@ window.onload = function() {
             player.onFlip();
             camera.onFlip();
             console.log(camera.globalY);
+
+            player.chill();
+            camera.chill();
+
+            if (game.gameStateUp) {
+               scoreLabel.color = "black";
+            }
+            else {
+               scoreLabel.color = "white";
+            }
            
             // Clean out the platformsfarray, effectively clearing the root scene.
             if(!game.gameStateUp){
@@ -109,10 +124,17 @@ window.onload = function() {
 
             //upBlockHeight = 400;
             //downBlockHeight = 500;
+
+            if (game.gameStateUp)
+               bg.frame = 0;
+            else
+               bg.frame = 1;
          };
 
          if (game.transition.currentTime >= game.transition.duration) {
             game.bgm.play();
+            player.stopChillin();
+            camera.stopChillin();
          };
          /*
          if (player.y + player.height < 0 && !game.gameStateUp ||

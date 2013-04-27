@@ -54,5 +54,14 @@ Player = Class.create(Sprite, {
       this.y = gameHeight / 2;
       this.globalY = this.y;
       `*/
+   },
+
+   chill: function () {
+      gravity = 0;
+      this.vel.y = 0;
+   },
+
+   stopChillin: function () {
+      gravity = 1;
    }
 });
