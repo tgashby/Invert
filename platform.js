@@ -15,14 +15,14 @@ Platform = Class.create(Sprite, {
       this.x = x;
       this.globalY = y;
       this.y = y;
-      this.isUpPlatform = upPlatform;
+      this.isUpPlatform = (typeof upPlatform === 'undefined') ? true : upPlatform;
    },
 
    onenterframe: function() {
       if (this.intersect(player)) {
-         if (player.bounce == true && player.vel.y < 0) {
+         if (player.bounce === true && player.vel.y < 0) {
             player.vel.y = 20;
-         } else if (player.bounce == false) {
+         } else if (player.bounce === false) {
             player.vel.y = 0;
             player.globalY = this.globalY - player.height;
          }

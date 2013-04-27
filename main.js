@@ -18,6 +18,7 @@ window.onload = function() {
       
       // Start the game with bouncing upwards
       game.gameStateUp = true;
+      game.rootScene.addChild(new Platform(0, gameHeight - 100, gameWidth));
 
       game.keybind(65, 'left');
       game.keybind(68, 'right');
@@ -28,7 +29,6 @@ window.onload = function() {
       camera = new Camera(player);
 
       game.rootScene.addChild(player);
-      // game.rootScene.addChild(new Platform(0,gameHeight-100,gameWidth));
 
       game.rootScene.addEventListener('enterframe', function(e) {
          camera.update();
@@ -47,6 +47,10 @@ window.onload = function() {
                console.log(downBlockHeight);
             }
          }
+
+         if (game.gameStateUp && player.y > gameHeight || 
+          !game.gameStateUp && player.y < 0)
+            game.end();
       });
 
       game.bgm = game.assets['CutRunLoop.ogg'];
