@@ -57,8 +57,13 @@ Platform = Class.create(Sprite, {
    },
 
    onenterframe: function() {
-      this.frame = 0;
-    
+      if(game.gameStateUp){
+         this.frame = 0;
+      }
+      else{
+         this.frame = 1;
+      }
+      
       if (this.intersect(player)) {
          if (player.bounce === true && player.vel.y < 0) {
             player.vel.y = 20;

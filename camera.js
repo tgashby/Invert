@@ -69,7 +69,7 @@ Camera = Class.create({
       if (game.gameStateUp)
          camera.cameraScrollSpeed = 1;
       else
-         camera.cameraScrollSpeed = 3;
+         camera.cameraScrollSpeed = 4.5;
    }
    
 

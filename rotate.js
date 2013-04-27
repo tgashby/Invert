@@ -29,7 +29,7 @@ Rotating = Class.create(Sprite, {
       }
 
       if (this.falling && this.globalY > camera.globalY + gameHeight ||
-       !this.falling && this.globalY < 0 - this.height)
+       !this.falling && this.globalY < camera.globalY - this.height)
          game.rootScene.removeChild(this);
    }
 });
