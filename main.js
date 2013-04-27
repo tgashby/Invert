@@ -6,6 +6,7 @@ var player;
 var upBlockHeight = 400;
 var downBlockHeight = 500;
 var platforms = new Array();
+var platformRows = new Array();
 var assets = ['player.png', 'platform.png',
    'backgroundCube.png', 'CutRunDownLoop.ogg',
    'CutRunLoop.ogg', 'CutRunTransition.ogg', 'CutRunUpLoop.ogg'];
@@ -22,7 +23,7 @@ window.onload = function() {
       // Start the game with bouncing upwards
       game.gameStateUp = true;
       game.rootScene.addChild(new Platform(0, gameHeight - 100, gameWidth));
-
+      game.keybind(81,'switchPlats');
       game.keybind(65, 'left');
       game.keybind(68, 'right');
       game.keybind(87, 'up');
@@ -59,7 +60,10 @@ window.onload = function() {
                // console.log(downBlockHeight);
             }
          }
-
+         if(game.input.switchPlats)
+         {
+            game.flipTimer = 9999;
+         }
          game.flipTimer++;
          if (game.flipTimer > game.fps * 5) {
             game.bgm.pause();
@@ -68,16 +72,34 @@ window.onload = function() {
             game.flipTimer = 0;
             player.onFlip();
             camera.onFlip();
-
-            // Clean out the platforms array, effectively clearing the root scene.
-            for (var i = 0; i < platforms.length; i++) {
-               game.rootScene.removeChild(platforms[i]);
-            };
-            platforms.splice(0, platforms.length);
-
+            console.log(camera.globalY);
+           
+            // Clean out the platformsfarray, effectively clearing the root scene.
+            if(!game.gameStateUp){
+               downBlockHeight = camera.globalY + gameHeight + 100;
+               while (platforms.length > 0) {
+                  currentPlat = platforms.pop();
+                  if(currentPlat.globalY < (camera.globalY + gameHeight)){
+                     currentPlat.switchSpaces();
+                  }
+                  game.rootScene.removeChild(currentPlat);
+               };
+            }
+            //platforms.splice(0, platforms.length);
+            else {
+               upBlockHeight = camera.globalY;
+               while(platformRows.length > 0){
+                  currentRow = platformRows.pop();
+                  if(currentRow.globalY <(camera.globalY + gameHeight))
+                  {
+                     currentRow.switchSpaces();
+                  }
+                  currentRow.removeSelf();
+               };
+            }
             if (game.gameStateUp) {
-               platforms.push(new Platform(0, gameHeight - 100, gameWidth));
-               game.rootScene.addChild(platforms[0]);
+               //platforms.push(new Platform(0, gameHeight - 100, gameWidth));
+               //game.rootScene.addChild(platforms[0]);
 
                game.bgm = game.assets['CutRunUpLoop.ogg'];
             }
@@ -85,23 +107,25 @@ window.onload = function() {
                game.bgm = game.assets['CutRunDownLoop.ogg'];
             }
 
-            upBlockHeight = 400;
-            downBlockHeight = 500;
+            //upBlockHeight = 400;
+            //downBlockHeight = 500;
          };
 
          if (game.transition.currentTime >= game.transition.duration) {
             game.bgm.play();
          };
-
+         /*
          if (player.y + player.height < 0 && !game.gameStateUp ||
           player.y > gameHeight && game.gameStateUp) {
             game.end();
          };
-
+         */
+         /*
          if (game.score > 9000) {
             alert("You Win!");
             game.end();
          }
+         */
       });
 
       game.transition = game.assets['CutRunTransition.ogg'];

@@ -3,7 +3,7 @@ var minUpHeight = 100;
 var maxWidth = 100;
 var minWidth = 40;
 var downWidthMax = 300;
-var gapSpaceMax = 140;
+var gapSpaceMax = 100;
 var gapSpaceMin = 100;
 var maxDownHeight = 160;
 var minDownHeight = 100;
@@ -12,6 +12,7 @@ var frameWidth = 100;
 Platform = Class.create(Sprite, {
    initialize: function(x, y, width, upPlatform) {
       Sprite.call(this, frameWidth, 50);
+      this.platWidth = width;
       this.image = game.assets['platform.png'];
       this.frame = 0;
       if (width > frameWidth) {
@@ -25,7 +26,9 @@ Platform = Class.create(Sprite, {
       this.isUpPlatform = (typeof upPlatform === 'undefined') ? true : upPlatform;
 
       this.addEventListener('added', function (e) {
-         platforms.push(this);
+         if(this.isUpPlatform === true){
+            platforms.push(this);
+         }
       });
    },
 
@@ -47,27 +50,51 @@ Platform = Class.create(Sprite, {
       // } else if (this.globalY + 50 < camera.globalY && this.isUpPlatform === false) {
       //    game.rootScene.removeChild(this);
       // }
+   },
+   switchSpaces:function(){
+      pRow = new PlatformRow(this.globalY,this.x,this.width);
+      //Add pRow to array
+      //Remove from Platform array
+      game.rootScene.removeChild(this);
    }
 });
 
 PlatformRow = Class.create({
-   initialize: function(blockHeight) {
-      this.gapX = Math.random() * (gameWidth - downWidthMax);
-      this.gapX2 = Math.random() * (gapSpaceMax - gapSpaceMin) + gapSpaceMin;
-      this.p1 = new Platform(0, blockHeight + (Math.random() * (maxDownHeight - minDownHeight) + minDownHeight), this.gapX, false);
+   initialize: function(blockHeight,gapX,gapWidth) {
+      this.gapX =gapX;
+      this.gapX2 = gapWidth;
+      this.p1 = new Platform(0, blockHeight, this.gapX, false);
       this.p2 = new Platform(this.gapX + this.gapX2, this.p1.globalY, gameWidth - (this.gapX + this.gapX2), false);
       game.rootScene.addChild(this.p1);
       game.rootScene.addChild(this.p2);
       // console.log("Added plats");
       this.globalY = this.p1.globalY;
+      platformRows.push(this);
 
    },
    onenterframe: function() {
       //console.log(globalY);
       this.y = this.globalY - camera.globalY;
+      /*
       if (this.globalY - 50 < camera.globalY) {
          game.rootScene.removeChild(this);
-      }
+      */
+   },
+   
+   switchSpaces: function() {
+      plat = new Platform(this.gapX,this.globalY,(this.gapX2),true);
+      console.log("Added platfrom at "+plat.globalY +"from "+this.globalY);
+      game.rootScene.addChild(plat);
+      //Add plat to array
+      //Remove from PlatformRow array
+      game.rootScene.removeChild(this.p1);
+      game.rootScene.removeChild(this.p2);
+      game.rootScene.removeChild(this);
+   },
+   removeSelf: function(){
+      game.rootScene.removeChild(this.p1);
+      game.rootScene.removeChild(this.p2);
+      game.rootScene.removeChild(this);
    }
 });
 
@@ -81,6 +108,8 @@ function createUpPlatforms(blockHeight) {
 }
 
 function createDownPlatforms(blockHeight) {
-   pRow = new PlatformRow(blockHeight);
+   pRow = new PlatformRow(blockHeight+(Math.random() * (maxDownHeight - minDownHeight) + minDownHeight),
+                                       Math.random()*(gameWidth-downWidthMax),
+                                       Math.random()*(gapSpaceMax-gapSpaceMin)+gapSpaceMin);
    return pRow.globalY;
 }
