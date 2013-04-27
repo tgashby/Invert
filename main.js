@@ -42,7 +42,7 @@ window.onload = function() {
 
       game.rootScene.addEventListener('enterframe', function(e) {
          camera.update();
-         game.score += 9;
+         game.score += 6;
 
          if (Math.random() * 1000 < 30) 
             game.rootScene.addChild(new Rotating(game.gameStateUp));
