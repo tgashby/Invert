@@ -6,6 +6,7 @@ var gravity = 1;
 var player;
 var upBlockHeight=400;
 <<<<<<< HEAD
+<<<<<<< HEAD
 var downBlockHeight = 500;
 var gameStateUp = false;
 =======
@@ -14,6 +15,13 @@ var assets = ['player.png', 'platform.png',
               'backgroundCube.png', 'CutRunDownLoop.ogg', 
               'CutRunLoop.ogg', 'CutRunTransition.ogg'];
 >>>>>>> Added background music
+=======
+var assets = ['player.png', 'platform.png', 
+              'backgroundCube.png', 'CutRunDownLoop.ogg', 
+              'CutRunLoop.ogg', 'CutRunTransition.ogg'];
+var downBlockHeight = 500;
+var gameStateUp = false;
+>>>>>>> Merge "Successful" player wrapping is causing issues.
 
 Player = Class.create(Sprite, {
 	initialize: function () {
@@ -79,6 +87,9 @@ window.onload = function() {
 
       game.rootScene.addEventListener('enterframe',function(e){
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Merge "Successful" player wrapping is causing issues.
          camera.update();
          if (Math.random() * 1000 < 30)
             game.rootScene.addChild(new Rotating());
@@ -89,6 +100,7 @@ window.onload = function() {
                   //console.log(upBlockHeight);
                }
             
+<<<<<<< HEAD
          }
          else{
             //console.log("Hoiii");
@@ -109,6 +121,18 @@ window.onload = function() {
             //console.log(upBlockHeight);
          }
 >>>>>>> Added background music
+=======
+         }
+         else{
+            //console.log("Hoiii");
+            while((camera.globalY + 120 + gameHeight)>(downBlockHeight)){
+              
+               downBlockHeight = createDownPlatforms(downBlockHeight);
+               console.log(downBlockHeight);
+            } 
+      }
+      
+>>>>>>> Merge "Successful" player wrapping is causing issues.
       });
 
       game.bgm = game.assets['CutRunLoop.ogg'];
