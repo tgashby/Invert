@@ -15,9 +15,7 @@ Platform = Class.create(Sprite, {
       this.platWidth = width;
       this.image = game.assets['platform.png'];
       this.frame = 0;
-      if (width > frameWidth) {
-         this.scaleX = width / frameWidth;
-      };
+      // this.scaleX = width / frameWidth;
       this.width = width;
       
       this.x = x;
