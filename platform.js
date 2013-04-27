@@ -7,6 +7,7 @@ var gapSpaceMax = 140;
 var gapSpaceMin = 100;
 var maxDownHeight = 160;
 var minDownHeight = 100;
+
 Platform = Class.create(Sprite, {
    initialize: function(x, y, width, upPlatform) {
       Sprite.call(this, width, 50);
@@ -19,7 +20,6 @@ Platform = Class.create(Sprite, {
 
    onenterframe: function() {
       if (this.intersect(player)) {
-
          if (player.bounce == true && player.vel.y < 0) {
             player.vel.y = 20;
          } else if (player.bounce == false) {
@@ -39,6 +39,7 @@ Platform = Class.create(Sprite, {
 
 
 });
+
 PlatformRow = Class.create({
    initialize: function(blockHeight) {
       this.gapX = Math.random() * (gameWidth - downWidthMax);

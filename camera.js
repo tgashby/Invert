@@ -4,7 +4,6 @@ var scrollDownYOffset = 200;
 
 Camera = Class.create({
    initialize: function(player) {
-      this.gameStateUp = false;
       this.player = player;
       this.globalY = 0;
       this.peakY = player.globalY;
@@ -14,7 +13,7 @@ Camera = Class.create({
    },
 
    update: function() {
-      if (this.gameStateUp) {
+      if (game.gameStateUp) {
          this.age++;
          this.globalY -= this.cameraScrollSpeed;
 
@@ -37,7 +36,7 @@ Camera = Class.create({
 
          //console.log((this.lowY-(this.globalY+(gameHeight-scrollDownYOffset))));
          this.globalY += this.cameraScrollSpeed;
-         
+
          if ((this.lowY - (this.globalY + (gameHeight - scrollDownYOffset))) > 0) {
             //console.log("Hi!")
             this.globalY = this.lowY - (gameHeight - scrollDownYOffset);
