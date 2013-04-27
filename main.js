@@ -30,15 +30,19 @@ Player = Class.create(Sprite, {
       this.globalY -= this.vel.y;
       this.vel.y -= gravity;
 
-      if (game.input.left) this.x -= this.vel.x;
+      if (game.input.left) 
+         this.x -= this.vel.x;
 
-      if (game.input.right) this.x += this.vel.x;
+      if (game.input.right) 
+         this.x += this.vel.x;
 
       this.y = this.globalY - camera.globalY;
 
-      if (this.x + this.width < 0) this.x = gameWidth;
+      if (this.x + this.width < 0) 
+         this.x = gameWidth;
 
-      if (this.x > gameWidth) this.x = 0 - this.width;
+      if (this.x > gameWidth) 
+         this.x = 0 - this.width;
    }
 });
 
@@ -62,7 +66,9 @@ window.onload = function() {
 
       game.rootScene.addEventListener('enterframe', function(e) {
          camera.update();
-         if (Math.random() * 1000 < 30) game.rootScene.addChild(new Rotating());
+         if (Math.random() * 1000 < 30) 
+            game.rootScene.addChild(new Rotating());
+         
          if (gameStateUp) {
 
             while (upBlockHeight - (camera.globalY - 80) > 0) {
@@ -72,7 +78,6 @@ window.onload = function() {
          } else {
             //console.log("Hoiii");
             while ((camera.globalY + 120 + gameHeight) > (downBlockHeight)) {
-
                downBlockHeight = createDownPlatforms(downBlockHeight);
                console.log(downBlockHeight);
             }

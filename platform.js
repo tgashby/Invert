@@ -15,21 +15,21 @@ Platform = Class.create(Sprite, {
       this.globalY = y;
       this.y = y;
       this.isUpPlatform = upPlatform;
-
    },
+
    onenterframe: function() {
       if (this.intersect(player)) {
 
          if (player.bounce == true && player.vel.y < 0) {
-
             player.vel.y = 20;
          } else if (player.bounce == false) {
-
             player.vel.y = 0;
             player.globalY = this.globalY - player.height;
          }
       }
+      
       this.y = this.globalY - camera.globalY;
+
       if (this.globalY > (camera.globalY + gameHeight) && this.isUpPlatform === true) {
          game.rootScene.removeChild(this);
       } else if (this.globalY + 50 < camera.globalY && this.isUpPlatform === false) {
@@ -62,7 +62,8 @@ PlatformRow = Class.create({
 
 function createUpPlatforms(blockHeight) {
    width = 100;
-   p = new Platform(Math.random() * (gameWidth - width), (blockHeight - (Math.random() * (maxUpHeight - minUpHeight) + minUpHeight)), width, true);
+   p = new Platform(Math.random() * (gameWidth - width), 
+      (blockHeight - (Math.random() * (maxUpHeight - minUpHeight) + minUpHeight)), width, true);
    game.rootScene.addChild(p);
    //console.log(p.globalY);
    return p.globalY;
