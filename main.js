@@ -54,6 +54,11 @@ window.onload = function() {
          if (game.flipTimer > 360) {
             game.gameStateUp = !game.gameStateUp;
             game.flipTimer = 0;
+            player.onFlip();
+
+            if (game.gameStateUp) {
+               game.rootScene.addChild(new Platform(0, gameHeight - 100, gameWidth));
+            }
          };
       });
 
