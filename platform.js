@@ -34,11 +34,12 @@ Platform = Class.create(Sprite, {
       
       this.y = this.globalY - camera.globalY;
 
-      if (this.globalY > (camera.globalY + gameHeight) && this.isUpPlatform === true) {
-         game.rootScene.removeChild(this);
-      } else if (this.globalY + 50 < camera.globalY && this.isUpPlatform === false) {
-         game.rootScene.removeChild(this);
-      }
+// Leave this out!
+      // if (this.globalY > (camera.globalY + gameHeight) && this.isUpPlatform === true) {
+      //    game.rootScene.removeChild(this);
+      // } else if (this.globalY + 50 < camera.globalY && this.isUpPlatform === false) {
+      //    game.rootScene.removeChild(this);
+      // }
    }
 });
 

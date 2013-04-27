@@ -53,6 +53,8 @@ window.onload = function() {
 
          game.flipTimer++;
          if (game.flipTimer > game.fps * 5) {
+            game.bgm.pause();
+            game.transition.play();
             game.gameStateUp = !game.gameStateUp;
             game.flipTimer = 0;
             player.onFlip();
@@ -67,15 +69,27 @@ window.onload = function() {
             if (game.gameStateUp) {
                platforms.push(new Platform(0, gameHeight - 100, gameWidth));
                game.rootScene.addChild(platforms[0]);
+
+               game.bgm = game.assets['CutRunUpLoop.ogg'];
+            }
+            else {
+               game.bgm = game.assets['CutRunDownLoop.ogg'];
             }
 
             upBlockHeight = 400;
             downBlockHeight = 500;
          };
+
+         if (game.transition.currentTime >= game.transition.duration) {
+            game.bgm.play();
+         };
       });
 
-      game.bgm = game.assets['CutRunLoop.ogg'];
+      game.bgm = game.assets['CutRunUpLoop.ogg'];
+
       game.bgm._element.loop = true;
+
+      game.transition = game.assets['CutRunTransition.ogg'];
 
       game.bgm.play();
    }

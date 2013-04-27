@@ -13,7 +13,7 @@ Rotating = Class.create(Sprite, {
       if (this.falling)
          this.globalY = this.y = (camera.globalY - 120);
       else
-         this.globalY = this.y = gameHeight + 120;
+         this.globalY = this.y = (camera.globalY + gameHeight + 120);
    },
 
    onenterframe: function() {
@@ -25,7 +25,7 @@ Rotating = Class.create(Sprite, {
       }
       else {
          this.globalY -= speed;
-         this.y = this.globalY + camera.globalY;
+         this.y = this.globalY - camera.globalY;
       }
 
       if (this.falling && this.globalY > camera.globalY + gameHeight ||
