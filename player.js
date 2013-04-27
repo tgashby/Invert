@@ -41,6 +41,13 @@ Player = Class.create(Sprite, {
 
    onFlip: function() {
       this.bounce = game.gameStateUp;
+
+      if (game.gameStateUp) {
+         this.frame = 0;
+      }
+      else {
+         this.frame = 1;
+      }
       
       /*
       this.x = gameWidth / 2;

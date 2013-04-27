@@ -14,8 +14,11 @@ Platform = Class.create(Sprite, {
       Sprite.call(this, 100, 50);
       this.platWidth = width;
       this.image = game.assets['platform.png'];
- 
-      console.log("Frame is " + this.frame);  
+
+      this.frame = 0;
+      // this.scaleX = width / frameWidth;
+      this.width = width;
+      
       this.x = x;
       this.globalY = y;
       this.y = y;
