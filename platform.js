@@ -11,9 +11,10 @@ var frameWidth = 100;
 
 Platform = Class.create(Sprite, {
    initialize: function(x, y, width, upPlatform) {
-      Sprite.call(this, frameWidth, 50);
+      Sprite.call(this, 100, 50);
       this.platWidth = width;
       this.image = game.assets['platform.png'];
+
       this.frame = 0;
       // this.scaleX = width / frameWidth;
       this.width = width;
@@ -31,6 +32,10 @@ Platform = Class.create(Sprite, {
    },
 
    onenterframe: function() {
+      this.frame = 1;
+      if (this.platWidth> frameWidth) {
+         this.scaleX = this.platWidth / frameWidth;
+      };
       if (this.intersect(player)) {
          if (player.bounce === true && player.vel.y < 0) {
             player.vel.y = 20;
