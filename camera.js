@@ -1,6 +1,6 @@
 var maxCamY = 200;
 var camOffset = 60;
-var scrollDownYOffset = 100;
+var scrollDownYOffset = 300;
 
 Camera = Class.create({
    initialize: function() {
@@ -13,9 +13,13 @@ Camera = Class.create({
 
    update: function() {
       //console.log(this.globalY);
-      this.gameTimeSpeed = (2*game.rootScene.age/10000);
+      this.gameTimeSpeed = (2*game.rootScene.age/5000);
+      if(this.gameTimeSpeed > 2.5)
+      {
+         this.gameTimeSpeed=2.5;
+      }
        //console.log(game.rootScene.age); 
-      if (game.gameStateUp) {
+      if (game.gameStateUp && this.cameraScrollSpeed != 0) {
          // this.cameraScrollSpeed = 1;
          this.globalY -= this.cameraScrollSpeed + this.gameTimeSpeed*this.cameraScrollSpeed;
 
@@ -29,7 +33,7 @@ Camera = Class.create({
             //  console.log("Im in ur thingy");
          }
       } 
-      else{
+      else if(this.cameraScrollSpeed != 0){
          // this.cameraScrollSpeed = 3;
 
          if (this.lowY < player.globalY) //Remember inverted y
@@ -70,9 +74,9 @@ Camera = Class.create({
 
    stopChillin: function () {
       if (game.gameStateUp)
-         camera.cameraScrollSpeed = 1;
+         camera.cameraScrollSpeed = 2;
       else
-         camera.cameraScrollSpeed = 4.5;
+         camera.cameraScrollSpeed = 3.5;
    }
    
 

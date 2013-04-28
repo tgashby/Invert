@@ -42,8 +42,15 @@ Player = Class.create(Sprite, {
          this.x = 0 - this.width;
 
       if (this.globalY < camera.globalY - 50 || (this.bounce && this.globalY > camera.globalY
-       + gameHeight + 50))
-         game.end();
+       + gameHeight + 50)){
+         game.gameOver=true;
+         camera.chill();
+         p = new ParticleSystem();
+         p.fireSystem(360,this.x,this.y,-1);
+         game.rootScene.removeChild(this);
+      }
+         
+         //game.end();
    },
 
    onFlip: function() {

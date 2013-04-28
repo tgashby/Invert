@@ -26,7 +26,7 @@ Platform = Class.create(Sprite, {
       // this.scaleX = width / frameWidth;
       //is.width = width;
       
-         this.scaleX = this.platWidth / frameWidth;
+      this.scaleX = this.platWidth / frameWidth;
         
    
       this.x = x;
