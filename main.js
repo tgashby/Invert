@@ -44,6 +44,10 @@ window.onload = function() {
       game.keybind(32, 'space')
       player = new Player();
       camera = new Camera();
+      game.leftArrow = new LeftArrow();
+      game.rootScene.addChild(game.leftArrow);
+      game.rightArrow = new RightArrow();
+      game.rootScene.addChild(game.rightArrow);
       scoreLabel = new Label();
       scoreLabel.addEventListener('enterframe', function() {
          this.text = "Score: " + game.score;
@@ -68,6 +72,7 @@ window.onload = function() {
 
       game.rootScene.addChild(player);
       game.rootScene.addChild(scoreLabel);
+     
       
       game.exitScene.addEventListener('enterframe',function(e){
       if(game.currentScene === game.exitScene && game.input.space)
@@ -102,6 +107,7 @@ window.onload = function() {
             scoreLabel.color = 'black';
             game.rootScene.addChild(new Platform(0, gameHeight - 100, gameWidth));
             console.log(game.rootScene.age);
+            game.bgm.play();
             game.popScene(game.rootScene);
             
             
@@ -184,7 +190,6 @@ window.onload = function() {
                if (game.gameStateUp) {
                   //platforms.push(new Platform(0, gameHeight - 100, gameWidth));
                   //game.rootScene.addChild(platforms[0]);
-
                   game.bgm = game.assets['CutRunUpLoop.ogg'];
                }
                else {
@@ -215,6 +220,7 @@ window.onload = function() {
             */
          }
          if ((game.transition.currentTime >= game.transition.duration) ){
+               
                game.bgm.play(); 
                //console.log("AND SWITCH!");
                player.stopChillin();
@@ -226,8 +232,11 @@ window.onload = function() {
          {
             if(delayToEnd-- <=0)
             {
+               game.bgm.stop();
+               game.transition.currentTime = 0;
                game.bgm = game.assets['CutRunUpLoop.ogg'];
                game.pushScene(game.exitScene);
+              
             }
          }
       });

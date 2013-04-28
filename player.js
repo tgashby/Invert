@@ -7,7 +7,7 @@ Player = Class.create(Sprite, {
       this.image = game.assets['player.png'];
       this.x = gameWidth / 2 - this.width / 2;
       this.y = gameHeight - this.height * 2;
-
+      this.arrowsRemoved=false;
       this.globalY = this.y;
       this.vel = {
          x: 10,
@@ -35,12 +35,26 @@ Player = Class.create(Sprite, {
       }
       this.y = this.globalY - camera.globalY;
 
-      if (this.x + this.width < 0) 
+      if (this.x + this.width < 0)
+      {
+         if(!this.arrowsRemoved)
+         {
+            game.leftArrow.removeslf = true;
+            game.rightArrow.removeslf = true;
+            this.arrowsRemoved = true;
+         }
          this.x = gameWidth;
+      }
+      if (this.x > gameWidth){
+         if(!this.arrowsRemoved)
+         {
+            game.leftArrow.removeslf = true;
+            game.rightArrow.removeslf = true;
+            this.arrowsRemoved = true;
+         }
 
-      if (this.x > gameWidth) 
          this.x = 0 - this.width;
-
+      }
       if (this.globalY < camera.globalY - 50 || (this.bounce && this.globalY > camera.globalY
        + gameHeight + 50)){
          game.gameOver=true;
