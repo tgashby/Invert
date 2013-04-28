@@ -40,6 +40,10 @@ Player = Class.create(Sprite, {
 
       if (this.x > gameWidth) 
          this.x = 0 - this.width;
+
+      if (this.globalY < camera.globalY - 50 || (this.bounce && this.globalY > camera.globalY
+       + gameHeight + 50))
+         game.end();
    },
 
    onFlip: function() {
