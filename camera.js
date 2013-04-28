@@ -8,13 +8,16 @@ Camera = Class.create({
       this.peakY = player.globalY;
       this.lowY = player.globalY;
       this.cameraScrollSpeed = 1;
+      this.gameTimeSpeed = 0;
    },
 
    update: function() {
       //console.log(this.globalY);
+      this.gameTimeSpeed = (2*game.rootScene.age/10000);
+       //console.log(game.rootScene.age); 
       if (game.gameStateUp) {
          // this.cameraScrollSpeed = 1;
-         this.globalY -= this.cameraScrollSpeed;
+         this.globalY -= this.cameraScrollSpeed + this.gameTimeSpeed*this.cameraScrollSpeed;
 
          if (this.peakY > player.globalY) {
             //console.log(this.peakY + ":"+player.globalY)
@@ -26,7 +29,7 @@ Camera = Class.create({
             //  console.log("Im in ur thingy");
          }
       } 
-      else {
+      else{
          // this.cameraScrollSpeed = 3;
 
          if (this.lowY < player.globalY) //Remember inverted y
@@ -35,7 +38,7 @@ Camera = Class.create({
          }
 
          //console.log((this.lowY-(this.globalY+(gameHeight-scrollDownYOffset))));
-         this.globalY += this.cameraScrollSpeed;
+         this.globalY += this.cameraScrollSpeed + this.gameTimeSpeed*(this.cameraScrollSpeed/3);
 
          if ((this.lowY - (this.globalY + (gameHeight - scrollDownYOffset))) > 0) {
             //console.log("Hi!")
