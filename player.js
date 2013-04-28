@@ -24,12 +24,15 @@ Player = Class.create(Sprite, {
       this.globalY -= this.vel.y;
       this.vel.y -= gravity;
 
-      if (game.input.left) 
+      if (game.input.left) {
          this.x -= this.vel.x;
+         this.rotate(-15);
+      }
 
-      if (game.input.right) 
+      if (game.input.right){
          this.x += this.vel.x;
-
+         this.rotate(15);
+      }
       this.y = this.globalY - camera.globalY;
 
       if (this.x + this.width < 0) 

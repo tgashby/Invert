@@ -1,4 +1,4 @@
-var maxUpHeight = 180;
+var maxUpHeight = 160;
 var minUpHeight = 100;
 var maxWidth = 100;
 var minWidth = 40;
@@ -8,6 +8,7 @@ var gapSpaceMin = 100;
 var maxDownHeight = 160;
 var minDownHeight = 100;
 var frameWidth = 100;
+var platWidth = 0.6;
 
 Platform = Class.create(Sprite, {
    initialize: function(x, y, width, upPlatform) {
@@ -18,7 +19,7 @@ Platform = Class.create(Sprite, {
       this.platWidth = width;
       this.frame = 0;
       this.originX = 0;
-
+      
       //this.originY = 25;
       this.scaleY = 0;
 
@@ -37,6 +38,7 @@ Platform = Class.create(Sprite, {
          if(this.isUpPlatform === true){
             platforms.push(this);
          }
+
       });
 
       this.intersect = function (sprite) {
@@ -67,7 +69,7 @@ Platform = Class.create(Sprite, {
       else{
          this.frame = 1;
       }
-      if(this.scaleY < 1 && !this.remove)
+      if(this.scaleY < platWidth && !this.remove)
       {
          this.scaleY += 0.1;
       }
