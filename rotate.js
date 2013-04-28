@@ -28,6 +28,11 @@ Rotating = Class.create(Sprite, {
          this.y = this.globalY - camera.globalY;
       }
 
+      if (this.intersect(player)) {
+         game.score += 1000;
+         game.rootScene.removeChild(this);
+      }
+
       if (this.falling && this.globalY > camera.globalY + gameHeight ||
        !this.falling && this.globalY < camera.globalY - this.height)
          game.rootScene.removeChild(this);
