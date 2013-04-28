@@ -5,12 +5,16 @@ var gameHeight = 500;
 var player;
 var upBlockHeight = 400;
 var downBlockHeight = 500;
+var delayToEnd = 120;
 var platforms = new Array();
 var platformRows = new Array();
 var assets = ['bg.png', 'player.png', 'platform.png',
    'backgroundCube.png', 'CutRunDownLoop.ogg', 'particle.png',
+   'leftArrow.png','rightArrow.png','start.png','end.png',
    'CutRunLoop.ogg', 'CutRunTransition.ogg', 'CutRunUpLoop.ogg'];
+var menuScene = Class.create(Scene,{
 
+})
 window.onload = function() {
    game = new Game(gameWidth, gameHeight);
    game.preload(assets);
@@ -19,9 +23,12 @@ window.onload = function() {
       game.fps = 120;
       game.score = 0;
       game.flipTimer = 0;
-
+      game.exitScene = new Scene();
+      var endBG = new Sprite(500,500);
+      endBG.image = game.assets['end.png'];
       bg = new Sprite(gameWidth, gameHeight);
       bg.image = game.assets['bg.png'];
+      game.exitScene.addChild(endBG);
       bg.frame = 0;
       game.rootScene.addChild(bg);
     
@@ -34,7 +41,7 @@ window.onload = function() {
       game.keybind(68, 'right');
       game.keybind(87, 'up');
       game.keybind(83, 'down');
-
+      game.keybind(32, 'space')
       player = new Player();
       camera = new Camera();
       scoreLabel = new Label();
@@ -46,7 +53,28 @@ window.onload = function() {
 
       game.rootScene.addChild(player);
       game.rootScene.addChild(scoreLabel);
-     
+      game.exitScene.addEventListener('enterframe',function(e){
+      if(game.currentScene === game.exitScene && game.input.space)
+         {
+            /*
+            console.log("Switching scene!");
+            camera = new Camera();
+            player = new Player();
+           // player.globalY = gameHeight/2;
+            game.gameOver = false;
+            game.score = 0;
+            game.rootScene.addChild(player);
+            game.flipTimer = 0;
+            camera.globalY = 0;
+            game.gameStateUp=true;
+            //game.rootScene.addChild(new )
+            delayToEnd=120;
+            game.popScene(game.rootScene);
+            */
+            game.restart();
+
+         }
+      });
       game.rootScene.addEventListener('enterframe', function(e) {
       if(!game.gameOver){
          
@@ -160,6 +188,13 @@ window.onload = function() {
             }
             */
          }
+         else
+         {
+            if(delayToEnd-- <=0)
+            {
+               game.pushScene(game.exitScene);
+            }
+         }
       });
 
 
@@ -172,4 +207,5 @@ window.onload = function() {
    }
 
    game.start();
+
 }
