@@ -97,7 +97,10 @@ window.onload = function() {
                   if(currentPlat.globalY > camera.globalY && (currentPlat.globalY < (camera.globalY + gameHeight))){
                      currentPlat.switchSpaces();
                   }
-                  game.rootScene.removeChild(currentPlat);
+                  else
+                  {
+                     game.rootScene.removeChild(currentPlat);
+                  }
                };
             }
             //platforms.splice(0, platforms.length);
@@ -110,7 +113,10 @@ window.onload = function() {
                   {
                      currentRow.switchSpaces();
                   }
-                 currentRow.removeSelf();
+                  else
+                  {
+                     currentRow.removeSelf();
+                  }
                };
             }
             if (game.gameStateUp) {

@@ -12,12 +12,14 @@ var frameWidth = 100;
 Platform = Class.create(Sprite, {
    initialize: function(x, y, width, upPlatform) {
       Sprite.call(this, 100, 50);
+      this.remove = false;
       this.platWidth = width;
       this.image = game.assets['platform.png'];
       this.platWidth = width;
       this.frame = 0;
       this.originX = 0;
-      this.originY = 0;
+      //this.originY = 25;
+      this.scaleY = 0;
       // this.scaleX = width / frameWidth;
       //is.width = width;
       
@@ -63,6 +65,10 @@ Platform = Class.create(Sprite, {
       else{
          this.frame = 1;
       }
+      if(this.scaleY < 1 && !this.remove)
+      {
+         this.scaleY += 0.1;
+      }
       
       if (this.intersect(player)) {
          if (player.bounce === true && player.vel.y < 0) {
@@ -72,6 +78,7 @@ Platform = Class.create(Sprite, {
             player.globalY = this.globalY - player.height;
          }
       }
+
       
       this.y = this.globalY - camera.globalY;
 
@@ -81,6 +88,11 @@ Platform = Class.create(Sprite, {
       // } else if (this.globalY + 50 < camera.globalY && this.isUpPlatform === false) {
       //    game.rootScene.removeChild(this);
       // }
+     
+      if(this.remove)
+      {
+         this.removeSelf();
+      }
    },
    switchSpaces:function(){
       pRow = new PlatformRow(this.globalY,this.x,this.width);
@@ -88,9 +100,23 @@ Platform = Class.create(Sprite, {
       console.log("platformRows count: "+ platformRows.length)
       //Add pRow to array
       //Remove from Platform array
-      game.rootScene.removeChild(this);
+      this.remove = true;
       console.log("---");
+   },
+   removeSelf:function(){
+
+      console.log(this.remove);
+      if(this.scaleY > 0)
+      {
+         console.log(this.remove);
+         this.scaleY -= 0.1;
+      }
+      else
+      {
+         game.rootScene.removeChild(this);
+      }
    }
+
 });
 
 PlatformRow = Class.create({
@@ -123,14 +149,14 @@ PlatformRow = Class.create({
       game.rootScene.addChild(plat);
       //Add plat to array
       //Remove from PlatformRow array
-      game.rootScene.removeChild(this.p1);
-      game.rootScene.removeChild(this.p2);
-      game.rootScene.removeChild(this);
+      this.p1.remove = true;
+      this.p2.remove = true;
+
+      //game.rootScene.removeChild(this);
    },
    removeSelf: function(){
       game.rootScene.removeChild(this.p1);
       game.rootScene.removeChild(this.p2);
-      game.rootScene.removeChild(this);
    }
 });
 
