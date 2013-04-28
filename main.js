@@ -48,36 +48,70 @@ window.onload = function() {
       scoreLabel.addEventListener('enterframe', function() {
          this.text = "Score: " + game.score;
       });
+      endLabel = new Label();
+      endLabel.addEventListener('enterframe',function(){
+         this.text = "" + game.score;
+         
+         endLabel.x = 228;
+         endLabel.y = 336;
+         endLabel.color = 'white';
+         endLabel.xScale = 3;
+         endLabel.yScale = 3;
+         //endLabel.scale(3*Math.sin(game.exitScene.age)+6,3*Math.cos(game.exitScene.age)+6);
+         //endLabel.rotation = 30*Math.sin(game.exitScene.age/3);
+         
+      });
+      game.exitScene.addChild(endLabel);
+
       scoreLabel.x = 10;
       scoreLabel.y = 10;
 
       game.rootScene.addChild(player);
       game.rootScene.addChild(scoreLabel);
+      
       game.exitScene.addEventListener('enterframe',function(e){
       if(game.currentScene === game.exitScene && game.input.space)
          {
-            /*
+            game.gameStateUp=true; 
             console.log("Switching scene!");
-            camera = new Camera();
             player = new Player();
+            camera = new Camera();
+            
            // player.globalY = gameHeight/2;
             game.gameOver = false;
             game.score = 0;
             game.rootScene.addChild(player);
             game.flipTimer = 0;
             camera.globalY = 0;
-            game.gameStateUp=true;
+           
             //game.rootScene.addChild(new )
             delayToEnd=120;
+            game.bgm = game.assets['CutRunUpLoop.ogg'];
+            bg.frame = 0;
+            upBlockHeight = 400;
+            downblockheight = 500;
+            while(platforms.length > 0)
+            {
+               game.rootScene.removeChild(platforms.pop());
+            }
+            while(platformRows.length > 0)
+            {
+               platformRows.pop().removeSelf(); 
+            }
+            game.rootScene.age=0;
+            scoreLabel.color = 'black';
+            game.rootScene.addChild(new Platform(0, gameHeight - 100, gameWidth));
+            console.log(game.rootScene.age);
             game.popScene(game.rootScene);
-            */
-            game.restart();
+            
+            
+            //game.start();
 
          }
       });
       game.rootScene.addEventListener('enterframe', function(e) {
       if(!game.gameOver){
-         
+            console.log(game.gameStateUp)
             camera.update();
             game.score += 6;
 
@@ -96,10 +130,7 @@ window.onload = function() {
                   // console.log(downBlockHeight);
                }
             }
-            if(game.input.switchPlats)
-            {
-               game.flipTimer = 9999;
-            }
+            
             game.flipTimer++;
             if (game.flipTimer > game.fps * 5) {
                game.bgm.pause();
@@ -167,14 +198,9 @@ window.onload = function() {
                   bg.frame = 0;
                else
                   bg.frame = 1;
-            };
 
-            if ((game.transition.currentTime >= game.transition.duration) ){
-               game.bgm.play();
-               console.log("AND SWITCH!");
-               player.stopChillin();
-               camera.stopChillin();
-            };
+            
+
             /*
             if (player.y + player.height < 0 && !game.gameStateUp ||
              player.y > gameHeight && game.gameStateUp) {
@@ -188,10 +214,19 @@ window.onload = function() {
             }
             */
          }
+         if ((game.transition.currentTime >= game.transition.duration) ){
+               game.bgm.play(); 
+               //console.log("AND SWITCH!");
+               player.stopChillin();
+               camera.stopChillin();
+            }
+         }
+            
          else
          {
             if(delayToEnd-- <=0)
             {
+               game.bgm = game.assets['CutRunUpLoop.ogg'];
                game.pushScene(game.exitScene);
             }
          }
